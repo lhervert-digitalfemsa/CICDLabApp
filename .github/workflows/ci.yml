@@ -15,11 +15,6 @@ jobs:
     # name: Build iOS and Android # Job to build the app for both platforms
     runs-on: ubuntu-latest # Runs on the latest Ubuntu environment
 
-    # Define a matrix for building on both Android and iOS
-    strategy:
-      matrix:
-        platform: [android, ios] # This matrix will run the build job twice, once for each platform
-
     steps:
       # Objective 2: Checkout Code
       # Add a step to clone the repository’s code into the GitHub Actions environment. This step will ensure that the runner has access to the codebase required to execute subsequent steps in the pipeline.
