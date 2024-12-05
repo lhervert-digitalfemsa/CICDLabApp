@@ -1,0 +1,49 @@
+name: React Native CI/CD Lab 7 # Name of the workflow for easy identification
+
+# Objective 1: Trigger Conditions
+# Configure the workflow to trigger whenever code is pushed to the main branch.
+on:
+  push:
+    branches:
+      - main # Runs on pushes to the main branch
+  # pull_request:
+  #   branches:
+  #     - main # Runs on pull requests to the main branch
+
+jobs:
+  build:
+    # name: Build iOS and Android # Job to build the app for both platforms
+    runs-on: ubuntu-latest # Runs on the latest Ubuntu environment
+
+    # Define a matrix for building on both Android and iOS
+    strategy:
+      matrix:
+        platform: [android, ios] # This matrix will run the build job twice, once for each platform
+
+    steps:
+      # Objective 2: Checkout Code
+      # Add a step to clone the repository’s code into the GitHub Actions environment. This step will ensure that the runner has access to the codebase required to execute subsequent steps in the pipeline.
+      - name: Check out code
+        uses: actions/checkout@v2 # Uses GitHub's official action to check out the code
+
+      # Objective 3: Set Up Node.js
+      # Add a step to install the Node.js environment. Specify the version that matches your project’s requirements.
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14" # Specifies Node.js version 14, which is commonly compatible with React Native
+
+      # Objective 4: Install Dependencies
+      # Configure a step to install the dependencies specified in package.json. This step will ensure that all necessary packages are available to build and test the application.
+      - name: Install dependencies
+        run: npm install # Installs all project dependencies listed in package.json
+
+      # Objective 5: Validate TypeScript
+      # Add a step to validate the TypeScript code in the project. Ensure this step identifies any type errors and stops the pipeline if issues are detected.
+      - name: TypeScript Check
+        run: npx tsc --noEmit
+
+      # Objective 6: Run Tests
+      # Add a step to execute the unit tests for the app. Configure this step to run the tests located in the __tests__ directory.
+      - name: Run Tests
+        run: npm test
