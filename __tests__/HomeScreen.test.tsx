@@ -1,9 +1,13 @@
-// __tests__/HomeScreen.test.tsx
-import * as React from "react";
-import * as renderer from "react-test-renderer";
-import HomeScreen from "../src/screens/HomeScreen";
+import React from 'react';
+import { render } from '@testing-library/react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-test("HomeScreen component renders correctly", () => {
-  const tree = renderer.create(<HomeScreen />).toJSON();
-  expect(tree).toMatchSnapshot();
+import HomeScreen from '../src/screens/HomeScreen';
+test('HomeScreen component renders correctly', () => {
+  const { toJSON } = render(
+    <NavigationContainer>
+      <HomeScreen />
+    </NavigationContainer>,
+  );
+  expect(toJSON()).toMatchSnapshot();
 });

@@ -1,9 +1,13 @@
-// __tests__/ProfileScreen.test.tsx
-import * as React from "react";
-import * as renderer from "react-test-renderer";
-import ProfileScreen from "../src/screens/ProfileScreen";
+import React from 'react';
+import { render } from '@testing-library/react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-test("ProfileScreen component renders correctly", () => {
-  const tree = renderer.create(<ProfileScreen />).toJSON();
-  expect(tree).toMatchSnapshot();
+import ProfileScreen from '../src/screens/ProfileScreen';
+test('ProfileScreen component renders correctly', () => {
+  const { toJSON } = render(
+    <NavigationContainer>
+      <ProfileScreen />
+    </NavigationContainer>,
+  );
+  expect(toJSON()).toMatchSnapshot();
 });
